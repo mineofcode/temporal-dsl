@@ -1,0 +1,170 @@
+body{
+    padding: 0;
+    margin: 0;
+    font-family: Roboto,Poppins,sans-serif;
+    // background-color: #FBFBFB;
+}
+
+
+
+/** The drop icon outer circle */
+.ngflowchart-step-wrapper[ngflowchart-drop-hover]::after {
+    background: #a3e798 !important;
+  }
+  
+  /** The drop icon inner circle */
+  .ngflowchart-step-wrapper[ngflowchart-drop-hover]::before {
+    background: #4cd137 !important;
+  }
+  
+  /** The arrow paths and arrow head */
+  .ngflowchart-arrow {
+    & #arrowhead {
+      fill: darkgrey;
+    }
+  
+    & #arrowpath {
+      stroke: darkgrey;
+    }
+  }
+
+
+  .ngflowchart-step-wrapper {
+    height: auto;
+    width: auto;
+    position: absolute;
+    box-sizing: border-box;
+    transition: all .2s;
+    cursor: grab;
+    width: 318px;
+    box-shadow: 0px 4px 30px rgb(22 33 74 / 5%);
+}
+
+  
+  section.page  {
+    // background: #202020;
+    display: flex;
+    flex-direction: column;
+    
+    // color: #fff;
+    width: 100%;
+    flex-direction: row;
+    padding: 0px !important;
+}
+
+ 
+
+div#rightmenu  {
+    width: 240px;
+    height: 100%;
+    background: #343434;
+    padding: 16px;
+    position: relative;
+}
+ 
+.spacer_vertical{
+    height: 20px;
+}
+
+.ngflowchart-canvas-content .ngflowchart-step-wrapper .card {
+    background-color: #444!important;
+    }
+
+
+    .blockydiv {
+        width: 100%;
+        height: 1px;
+        // background-color: #E9E9EF;
+    }
+
+    .ant-card-body{
+        padding: 15px;
+    }
+    .ant-card-head{
+        padding: 0 15px;
+    }
+
+    .node-outer {
+        border: 2px solid #434343;
+        overflow: hidden;
+        border-radius: 5px;
+        min-width: 230px;
+    }
+
+    .ant-card-bordered-selected {
+        border: 2px solid #03a9f4;
+
+    }
+
+    .ant-drawer{
+        width: auto!important;
+    }
+
+   .rightinput .ant-input-group{
+        display: flex!important; 
+        flex-direction: column!important;    
+    }
+    .rightinput .ant-input-group-addon{
+        padding: 5px 0px!important; 
+        background-color: transparent!important;
+        border: 0px solid #d9d9d9!important;
+    }
+
+
+
+    .ant-card-meta-avatar .anticon {
+        padding: 5px;
+        // background: #232323;
+        /* width: 36px; */
+        /* height: 36px; */
+        // background-color: #F1F4FC;
+        border-radius: 5px;
+        text-align: center;
+        white-space: nowrap;
+    }
+
+    .settings-ant-drawer-body{
+        padding: 15px 0px 0px 15px
+    }
+
+    .blocksHolder{
+        height: calc(100% - 200px);
+        overflow: auto;
+
+    }
+
+    .right-content{
+        height: calc(100vh - 193px);
+        overflow: auto;
+    }
+
+
+    .right-settings-content {
+        
+            padding-bottom: 15px;
+            overflow: auto;
+    }
+
+    
+// Import the official dark less style file
+
+// Import the official compact less style file
+//@import "~ng-zorro-antd/ng-zorro-antd.compact.less";
+
+// Import the official Aliyun less style file
+//@import "~ng-zorro-antd/ng-zorro-antd.aliyun.less";/
+
+    nz-space{
+        display: flex;
+        justify-content: space-evenly;
+    }
+    .mr-2{
+        margin-right: 5px;
+    }
+
+    .ant-divider-lessmargin{
+
+        margin: 10px 0!important;
+
+    }
+   

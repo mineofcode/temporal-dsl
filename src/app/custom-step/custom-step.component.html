@@ -1,0 +1,15 @@
+<!-- <div class="if-step" #canvasContent>
+  <span>{{ data.name }}</span>
+  <div class="blockydiv"></div>
+  <button class="btn" (click)="onAddRoute()">Add Route</button>
+  <button class="btn" (click)="delete()">Delete</button>
+</div> --> 
+<div  class="if-step" #canvasContent>
+   <node [node]="me"  [actions]="[actionEdit]"></node>
+</div>
+
+ 
+<ng-template #actionEdit>
+  <span nz-icon nzType="plus-circle" (click)="onAddRoute($event)" nzTheme="outline"></span>   
+</ng-template>
+ 

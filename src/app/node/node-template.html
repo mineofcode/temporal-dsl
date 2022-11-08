@@ -1,0 +1,20 @@
+<nz-card [nzActions]="actions" (click)="_onNodeClick($event)" class="node-outer"  [ngClass]="{'ant-card-bordered-selected':node?.selected}">
+    <nz-card-meta
+        [nzAvatar]="avatarTemplate"
+        nzTitle="{{node?.data?.name}}"
+      
+    ></nz-card-meta>
+    <nz-divider class="ant-divider-lessmargin"></nz-divider>
+{{node?.data?.description}} 
+<sub>{{node?.data?.subtext}} </sub>
+
+</nz-card>
+<ng-template #avatarTemplate>
+    <span
+        nz-icon
+        style="font-size: 20px;"
+        [style.color]="node?.data?.iconColor"
+        nzType="{{node?.data?.icon}}"
+        nzTheme="outline"
+    ></span>
+</ng-template> 
