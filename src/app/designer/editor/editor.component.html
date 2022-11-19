@@ -1,0 +1,210 @@
+<nz-page-header nzTitle="PRECiSiON">
+    <nz-page-header-tags>
+
+        <nz-badge nzStandalone [nzStyle]="{ backgroundColor: '#52c41a' }"></nz-badge>
+        <!-- <input
+            nz-input
+            placeholder="Workflow Name"
+            [(ngModel)]="workflowOptions.name"
+            nzBorderless
+        > -->
+    </nz-page-header-tags>
+    <nz-page-header-extra>
+        <button nz-button nzType="dashed" nzShape="circle" (click)="openSetingsPanel()">
+            <span
+                nz-icon
+                nzType="setting"
+            ></span>
+        </button>
+        <button *nzSpaceItem nz-button nzNoAnimation nz-dropdown [nzDropdownMenu]="menu" nzPlacement="bottomRight" style="border: none; padding: 0">
+            <span
+                nz-icon
+                nzType="more"
+                nzTheme="outline"
+                style="font-size: 20px; vertical-align: top;"
+            ></span>
+        </button>
+    </nz-page-header-extra>
+</nz-page-header>
+<main>
+    <section class="page">
+        <div id="palette">
+            <section>
+                <app-toolbox [customOps]="customOps"></app-toolbox>
+                <nz-divider nzText="Actions"></nz-divider>
+                <div style="    display: flex;
+                flex-direction: row;
+                justify-content: center;
+            ">
+                    <button class="mr-2" nz-button nzType="primary" nzDanger nzShape="circle" nz-tooltip nzTooltipTitle="Clear work flow" nzTooltipPlacement="top" nzSize="small" (click)="clearData()">
+                        <span
+                            nz-icon
+                            nzType="clear"
+                        ></span>
+                    </button>
+                    <button class="mr-2" nz-button nzType="primary" nzShape="circle" nz-tooltip nzTooltipTitle="Import Work flow" nzTooltipPlacement="top" nzSize="small" (click)="importData()">
+                        <span
+                            nz-icon
+                            nzType="download"
+                        ></span>
+                    </button>
+                    <button class="mr-2" nz-button nzType="primary" nzShape="circle" nz-tooltip nzTooltipTitle="Export Work flow data" nzTooltipPlacement="top" nzSize="small" (click)="exportData('JSON')">
+                        <span
+                            nz-icon
+                            nzType="upload"
+                        ></span>
+                    </button>
+                    <button class="mr-2" nz-button nzType="dashed" nzShape="circle" nz-tooltip nzTooltipTitle="Export Work flow DSL data" nzTooltipPlacement="top" nzSize="small" (click)="exportData('DSL')">
+                        <span
+                            nz-icon
+                            nzType="upload"
+                        ></span>
+                    </button>
+                </div>
+            </section>
+            <!-- <section>
+        <button (click)="showFlowData()">Show JSON</button>
+        <button (click)="showUpload()">Upload JSON</button>
+      </section>
+      <section>
+        <div class="sub-section">
+          <label for="step-gap-select" class="wide">Step Gap</label>
+          <select
+            name="step-gap-select"
+            id="step-gap-select"
+            class="wide"
+            (change)="onGapChanged($event)"
+          >
+            <option value="30">30</option>
+            <option value="40" selected>40</option>
+            <option value="60">60</option>
+          </select>
+        </div>
+        <div class="sub-section">
+          <label for="sequential">Sequential</label>
+          <input
+            type="checkbox"
+            name="sequential"
+            (change)="onSequentialChange($event)"
+          />
+        </div>
+        <div class="sub-section">
+          <label for="disabled">Disabled</label>
+          <input
+            type="checkbox"
+            name="disabled"
+            (change)="disabled = $event.target?.checked"
+          />
+        </div>
+      </section> -->
+        </div>
+        <div id="canvas" #canvas ngFlowchartCanvas [ngFlowchartOptions]="options" [ngFlowchartCallbacks]="callbacks" [disabled]="disabled"></div>
+    </section>
+    <ng-template #title>
+        <div style="    display: flex;">
+            <span nz-icon style="font-size: 20px;margin-right: 5px;" [style.color]="drawerData?.iconColor" nzType="{{drawerData?.icon}}"></span> {{drawerData?.name}}
+        </div>
+    </ng-template>
+    <nz-drawer [nzClosable]="true" [nzVisible]="propertyPanelVisible" [nzPlacement]="placement" [nzMask]="false" [nzWrapClassName]="'panel-right'" [nzMaskClosable]="true" [nzTitle]="title" (nzOnClose)="closeProperyPanel()">
+        <ng-container *nzDrawerContent>
+            <div class="right-content">
+
+                <div *ngFor="let iitem of drawerData.props; index as i">
+                    <ng-container [ngTemplateOutlet]="{'text_input': text_input,'text_area':text_area}[iitem.type]" [ngTemplateOutletContext]="{ data: iitem, idx: i }"></ng-container>
+                </div>
+
+
+                <!-- <nz-input-group class="rightinput" nzAddOnBefore="Short Description">
+                    <input type="text" nz-input [(ngModel)]="drawerData.description" placeholder="Enter Description">
+                </nz-input-group>
+                <nz-input-group class="rightinput" *ngIf="drawerData?.has?.evt_name" nzAddOnBefore="Event Name">
+                    <input type="text" nz-input [(ngModel)]="drawerData.evt_name" placeholder="Event Name">
+                </nz-input-group>
+                <nz-input-group class="rightinput" nzAddOnBefore="JQ Expression" *ngIf="drawerData?.has?.mvel">
+                    <textarea nz-input placeholder="Enter JQ Expression" [(ngModel)]="drawerData.mvel" [nzAutosize]="{ minRows: 2, maxRows: 6 }"></textarea>
+                </nz-input-group>
+                <nz-input-group class="rightinput" nzAddOnBefore="Actions" *ngIf="drawerData?.has?.actions">
+                    <nz-select [(ngModel)]="drawerData.action" [nzSize]="size">
+                        <nz-option *ngFor="let option of listOfOption" [nzLabel]="option.label" [nzValue]="option.value"></nz-option>
+                    </nz-select>
+                </nz-input-group>
+                <nz-input-group class="rightinput" nzAddOnBefore="Duration" *ngIf="drawerData?.has?.sleepinput">
+                    <input type="text" nz-input [(ngModel)]="drawerData.sleep" placeholder="Duration eg. PT2S">
+                </nz-input-group> -->
+            </div>
+            <nz-divider nzText="Action"></nz-divider>
+            <nz-space>
+                <button nz-button nzType="primary" nzSize="small" nzDanger (click)="onDelete(false)">
+                    <span
+                        nz-icon
+                        nzType="delete"
+                    ></span>
+                    Delete Node
+                </button>
+                <button nz-button nzType="primary" nzSize="small" nzDanger (click)="onDelete(true)">
+                    <span
+                        nz-icon
+                        nzType="delete"
+                    ></span>
+                    Delete with Child
+                </button>
+            </nz-space>
+        </ng-container>
+    </nz-drawer>
+    <nz-drawer [nzClosable]="true" [nzVisible]="settingsPanelVisible" [nzPlacement]="settingsPlacement" [nzMask]="false" [nzMaskClosable]="true" nzTitle="Settings" (nzOnClose)="closeSettingsPanel()">
+        <ng-container *nzDrawerContent>
+            <div class="right-settings-content">
+                <nz-input-group class="rightinput" nzAddOnBefore="Id">
+                    <input type="text" nz-input [(ngModel)]="workflowOptions.id" placeholder="Enter Id">
+                </nz-input-group>
+                <nz-input-group class="rightinput" nzAddOnBefore="Name">
+                    <input type="text" nz-input [(ngModel)]="workflowOptions.name" placeholder="Enter Name">
+                </nz-input-group>
+                <nz-input-group class="rightinput" nzAddOnBefore="Version">
+                    <input type="text" nz-input [(ngModel)]="workflowOptions.version" placeholder="Enter Version">
+                </nz-input-group>
+                <nz-divider nzText="Timeouts"></nz-divider>
+                <nz-input-group class="rightinput" nzAddOnBefore="Workflow Execution">
+                    <input type="text" nz-input [(ngModel)]="workflowOptions.timeouts.workflowExecTimeout.duration" placeholder="Eg. PT10M">
+                </nz-input-group>
+                <nz-input-group class="rightinput" nzAddOnBefore="Activity Execution">
+                    <input type="text" nz-input [(ngModel)]="workflowOptions.timeouts.actionExecTimeout" placeholder="Eg. PT10S">
+                </nz-input-group>
+                <nz-divider nzText="Retries"></nz-divider>
+                <nz-input-group class="rightinput" nzAddOnBefore="Delay">
+                    <input type="text" nz-input [(ngModel)]="workflowOptions.retries[0].delay" placeholder="Eg. PT3S">
+                </nz-input-group>
+                <nz-input-group class="rightinput" nzAddOnBefore="Max Attempts">
+                    <nz-input-number [nzMin]="0" [nzMax]="100" [nzStep]="1" [(ngModel)]="workflowOptions.retries[0].maxAttempts" placeholder="Eg. 10"></nz-input-number>
+                </nz-input-group>
+            </div>
+        </ng-container>
+    </nz-drawer>
+</main>
+<ng-template #text_input let-iitem="data" let-position="idx">
+    <nz-input-group class="rightinput" nzAddOnBefore="{{iitem.label}}">
+        <input type="text" (input)="drawerUpdateHandle()" nz-input [(ngModel)]="iitem.value" placeholder="Enter {{iitem.label}}">
+    </nz-input-group>
+</ng-template>
+<ng-template #text_area let-iitem="data" let-position="idx">
+    <nz-input-group class="rightinput" nzAddOnBefore="{{iitem.label}}">
+        <textarea nz-input (input)="drawerUpdateHandle()" placeholder="Enter {{iitem.label}}" [(ngModel)]="iitem.value" [nzAutosize]="{ minRows: 2, maxRows: 6 }"></textarea>
+    </nz-input-group>
+</ng-template>
+
+
+
+
+<nz-modal [(nzVisible)]="isModalVisible" nzTitle="{{modaltitle}}" (nzOnCancel)="handleCancel()" [nzFooter]="modalFooter">
+    <ng-container *nzModalContent>
+        <textarea rows="10" nz-input [(ngModel)]="dataExport"></textarea>
+    </ng-container>
+</nz-modal>
+<ng-template #modalFooter>
+    <button nz-button nzType="default" (click)="handleCancel()">
+        Close
+    </button>
+    <button *ngIf="isimport" nz-button nzType="primary" (click)="handleOk()">
+        IMPORT
+    </button>
+</ng-template>

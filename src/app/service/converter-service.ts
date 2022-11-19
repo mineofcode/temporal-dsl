@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 
 @Injectable({ providedIn: 'root' })
 export class ConverterService {
-  constructor() {}
+  constructor() { }
 
   convertToDSL(workflowData: any) {
     let data = workflowData.workflow;
@@ -28,14 +28,14 @@ export class ConverterService {
         }
       }
     });
-    
+
     let response: any = {
       ...workflowData.settings,
       states: states,
       functions: functions,
       events: events,
     };
-    response.version = response.id + "-"  + response.version;
+    response.version = response.id + "-" + response.version;
     return response;
   }
 
@@ -68,7 +68,7 @@ export class ConverterService {
       case 'input':
         let eventData: any = [
           {
-            eventRefs: [element.data.evt_name],
+            eventRefs: [this.getProps(element.data.props, 'evt_name')],
             actions: [],
           },
         ];
@@ -87,8 +87,8 @@ export class ConverterService {
           type: 'operation',
           actions: [
             {
-              name: element.data.name,
-              functionRef: element.data.action,
+              name: this.getProps(element.data.props, 'name'),
+              functionRef: this.getProps(element.data.props, 'action'),
             },
           ],
           name: element.id,
@@ -108,11 +108,12 @@ export class ConverterService {
   }
 
   private traveltoRouter(data: any, dt: any) {
+    debugger
     var conditions: any = [];
     for (let k = 0; k < data.children.length; k++) {
       const el = data.children[k];
-      conditions.push({
-        condition: el.data.mvel,
+       conditions.push({
+        condition: this.getProps(el.data.props, 'expression'),
         transition: el.children[0].id,
       });
     }
@@ -128,4 +129,10 @@ export class ConverterService {
       this.travelToChild(el, dt);
     }
   }
+
+
+  getProps(props: any, type: any): any {
+    return props.find((a: any) => a.id === type).value
+  }
+
 }

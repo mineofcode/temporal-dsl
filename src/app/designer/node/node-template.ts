@@ -1,5 +1,5 @@
 import { Component, EventEmitter, Input, OnInit, Output, TemplateRef } from '@angular/core';
-import { NodeCommunicateService } from '../service/communicate-service';
+import { NodeCommunicateService } from '../../service/communicate-service';
 
 @Component({
     selector: 'node',

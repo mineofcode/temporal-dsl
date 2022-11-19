@@ -1,0 +1,29 @@
+<nz-input-group [nzPrefix]="suffixIconSearch">
+    <input type="text" nz-input [(ngModel)]="filterterm" placeholder="Search Blocks">
+</nz-input-group>
+<ng-template #suffixIconSearch>
+    <span nz-icon nzType="search"></span>
+</ng-template>
+<nz-divider nzText="Blocks"></nz-divider>
+<div class="blocksHolder">
+
+    <!-- <div class="plugin-op" *ngFor="let item of items" [ngFlowchartStep]="{ template: normalStep,   type: item.type,  data: item.data }">
+
+        <div class="if-step" #canvasContent>
+            <nz-card>
+                <nz-card-meta [nzAvatar]="avatarTemplate" nzTitle="{{item.name}}" nzDescription="{{item.data?.description}}"></nz-card-meta>
+            </nz-card>
+            <ng-template #avatarTemplate>
+                <span nz-icon nzType="{{item.data?.icon}}" style="font-size: 20px;" [style.color]="item.data?.iconColor" nzTheme="outline"></span>
+            </ng-template>
+        </div>
+    </div> -->
+    <div class="plugin-op" *ngFor='let op of customOps | filter: filterterm:["type","data","description"]' [ngFlowchartStep]="op">
+        <nz-card>
+            <nz-card-meta [nzAvatar]="avatarTemplate" nzTitle="{{op.name }}" nzDescription="{{op.data?.description}}"></nz-card-meta>
+        </nz-card>
+        <ng-template #avatarTemplate>
+            <span nz-icon style="font-size: 20px;" [style.color]="op.data?.iconColor" nzType="{{op.data?.icon}}" nzTheme="outline"></span>
+        </ng-template>
+    </div>
+</div>
