@@ -76,7 +76,7 @@ export class ConverterService {
           type: 'event',
           onEvents: eventData,
           name: element.id,
-          metadata: { name: element.data.name },
+          metadata: { name: element.data.name, extra: this.getProps(element.data.props, 'map_option') },
           transition: element.children[0].id,
         });
         this.travelToChild(element, dt);
@@ -92,7 +92,7 @@ export class ConverterService {
             },
           ],
           name: element.id,
-          metadata: { name: element.data.name },
+          metadata: { name: element.data.name, extra: this.getProps(element.data.props, 'map_option') },
           transition: element.children[0].id,
         });
         this.travelToChild(element, dt);
@@ -122,7 +122,7 @@ export class ConverterService {
       type: 'switch',
       dataConditions: conditions,
       name: data.id,
-      metadata: { name: data.data.name },
+      metadata: { name: data.data.name, extra: this.getProps(data.data.props, 'map_option') },
     });
     for (let k = 0; k < data.children.length; k++) {
       const el = data.children[k];
@@ -132,6 +132,7 @@ export class ConverterService {
 
 
   getProps(props: any, type: any): any {
+    console.log(type)
     return props.find((a: any) => a.id === type).value
   }
 

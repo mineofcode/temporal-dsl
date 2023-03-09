@@ -87,6 +87,10 @@ export class EditorComponent implements OnInit {
 
     colors: any = [];
 
+    panels = [
+
+    ];
+
     constructor(
         private stepRegistry: NgFlowchartStepRegistry,
         private nodeCommService: NodeCommunicateService,
@@ -183,7 +187,7 @@ export class EditorComponent implements OnInit {
     }
 
     onDrop(d: NgFlowchart.DropEvent) {
-      
+
     }
 
     onDropError(error: NgFlowchart.DropError) {
@@ -312,4 +316,11 @@ export class EditorComponent implements OnInit {
     }
 
 
+    addKeyMap(iitm: any) {
+        iitm.value.push({ "key": "", "value": "" });
+    }
+
+    removeitem(values: any, i: any) {
+        values.splice(i, 1);
+    }
 }

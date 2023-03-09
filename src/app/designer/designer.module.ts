@@ -24,10 +24,11 @@ import { EditorComponent } from './editor/editor.component';
 import { NodeComponent } from './node/node-template';
 import { PropertiesComponent } from './properties/properties.component';
 import { ToolBoxComponent } from './toolbox/toolbox.component';
-
+import { NzCollapseModule } from 'ng-zorro-antd/collapse';
 
 @NgModule({
     imports: [
+        NzCollapseModule,
         Ng2SearchPipeModule,
         NzBadgeModule,
         NzTagModule,

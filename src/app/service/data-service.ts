@@ -18,7 +18,9 @@ export class DataService {
             props: [
                 { 'id': 'name', 'label': 'Name', 'type': 'text_input', 'default': '', 'value': 'Activity Name' },
                 { 'id': 'desc', 'label': 'Short Description', 'type': 'text_input', 'default': '', 'value': 'Execute the activity' },
-                { 'id': 'action', 'label': 'Action', 'type': 'text_input', 'default': '', 'value': '' }
+                { 'id': 'action', 'label': 'Action', 'type': 'text_input', 'default': '', 'value': '' },
+                { 'id': 'map_option', 'label': 'Property', 'type': 'map_props', 'default': '', 'value': [] }
+
             ]
         },
     },
@@ -37,7 +39,8 @@ export class DataService {
                 { 'id': 'name', 'label': 'Name', 'type': 'text_input', 'default': '', 'value': 'Input Signal' },
                 { 'id': 'desc', 'label': 'Short Description', 'type': 'text_input', 'default': '', 'value': 'Waiting for input' },
                 { 'id': 'evt_name', 'label': 'Event Name', 'type': 'text_input', 'default': '', 'value': '' },
-                { 'id': 'expression', 'label': 'JQ Expression', 'type': 'text_area', 'default': '', 'value': '' }
+                { 'id': 'expression', 'label': 'JQ Expression', 'type': 'text_area', 'default': '', 'value': '' },
+                { 'id': 'map_option', 'label': 'Property', 'type': 'map_props', 'default': '', 'value': [] }
 
             ]
         },
@@ -67,7 +70,9 @@ export class DataService {
                 props: [
                     { 'id': 'name', 'label': 'Name', 'type': 'text_input', 'default': '', 'value': 'Route' },
                     { 'id': 'desc', 'label': 'Short Description', 'type': 'text_input', 'default': '', 'value': 'condition' },
-                    { 'id': 'expression', 'label': 'JQ Expression', 'type': 'text_area', 'default': '', 'value': '' }
+                    { 'id': 'expression', 'label': 'JQ Expression', 'type': 'text_area', 'default': '', 'value': '' },
+                    { 'id': 'map_option', 'label': 'Property', 'type': 'map_props', 'default': '', 'value': [] }
+    
 
                 ]
             },
@@ -103,7 +108,9 @@ export class DataService {
             map: { 'name': 'name', 'description': 'desc' },
             props: [
                 { 'id': 'name', 'label': 'Name', 'type': 'text_input', 'default': '', 'value': 'Callback' },
-                { 'id': 'desc', 'label': 'Short Description', 'type': 'text_input', 'default': '', 'value': 'Send callback' }
+                { 'id': 'desc', 'label': 'Short Description', 'type': 'text_input', 'default': '', 'value': 'Send callback' },
+                { 'id': 'map_option', 'label': 'Property', 'type': 'map_props', 'default': '', 'value': [] }
+
 
             ]
         },

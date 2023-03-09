@@ -110,8 +110,10 @@
             <div class="right-content">
 
                 <div *ngFor="let iitem of drawerData.props; index as i">
-                    <ng-container [ngTemplateOutlet]="{'text_input': text_input,'text_area':text_area}[iitem.type]" [ngTemplateOutletContext]="{ data: iitem, idx: i }"></ng-container>
+                    <ng-container [ngTemplateOutlet]="{'text_input': text_input,'text_area':text_area,'map_props':map_props}[iitem.type]" [ngTemplateOutletContext]="{ data: iitem, idx: i }"></ng-container>
                 </div>
+
+
 
 
                 <!-- <nz-input-group class="rightinput" nzAddOnBefore="Short Description">
@@ -148,6 +150,7 @@
                     ></span>
                     Delete with Child
                 </button>
+
             </nz-space>
         </ng-container>
     </nz-drawer>
@@ -191,6 +194,30 @@
         <textarea nz-input (input)="drawerUpdateHandle()" placeholder="Enter {{iitem.label}}" [(ngModel)]="iitem.value" [nzAutosize]="{ minRows: 2, maxRows: 6 }"></textarea>
     </nz-input-group>
 </ng-template>
+
+<ng-template #map_props let-iitem="data" let-position="idx">
+    <!-- <button nz-button nzType="primary"  nzShape="circle"><span nz-icon nzType="plus"></span></button> -->
+    <nz-divider nzDashed [nzText]="text" (click)="addKeyMap(iitem)">
+        <ng-template #text>
+            <span nz-icon nzType="plus"></span> Add Extra
+        </ng-template>
+    </nz-divider>
+    <nz-collapse *ngIf="iitem.value.length > 0">
+        <nz-collapse-panel *ngFor="let pnl of iitem.value; let i = index" [nzHeader]="pnl.key" [nzExtra]="extraTpl">
+            <nz-input-group class="rightinput" nzAddOnBefore="Key">
+                <input type="text" nz-input [(ngModel)]="pnl.key" placeholder="Enter Key">
+            </nz-input-group>
+            <nz-input-group class="rightinput" nzAddOnBefore="Value">
+                <input type="text" nz-input [(ngModel)]="pnl.value" placeholder="Enter Value">
+            </nz-input-group>
+            <ng-template #extraTpl>
+                <span nz-icon nzType="delete" (click)="removeitem(iitem.value, i)"></span>
+            </ng-template>
+        </nz-collapse-panel>
+    </nz-collapse>
+
+</ng-template>
+
 
 
 
